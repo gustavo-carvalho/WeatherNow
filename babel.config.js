@@ -8,6 +8,9 @@ module.exports = {
         alias: {
           '@screens': './src/screens',
           '@components': './src/components',
+          '@types': './src/types',
+          '@hooks': './src/hooks',
+          '@contexts': './src/contexts',
         },
       },
     ],

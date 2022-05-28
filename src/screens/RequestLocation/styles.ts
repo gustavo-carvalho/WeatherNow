@@ -37,3 +37,12 @@ export const SubmitButtonText = styled.Text`
   color: #fff;
   text-align: center;
 `;
+
+export const LoadingSpinner = styled.ActivityIndicator.attrs(props => ({
+  ...props,
+  size: 'large',
+  animating: true,
+  color: '#fff',
+}))`
+  margin: 0 24px 32px;
+`;
