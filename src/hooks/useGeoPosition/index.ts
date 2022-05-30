@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useReducer} from 'react';
+import {useCallback, useEffect, useMemo, useReducer} from 'react';
 import Geolocation, {
   GeoPosition,
   GeoError,
@@ -42,7 +42,13 @@ function useGeoPosition() {
     getPosition();
   }, [getPosition]);
 
-  return {state, getPosition};
+  return useMemo(
+    () => ({
+      state,
+      getPosition,
+    }),
+    [state, getPosition],
+  );
 }
 
 export default useGeoPosition;

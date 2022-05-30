@@ -5,6 +5,7 @@ export interface WeatherResponse {
   cod: number;
   base: string;
   visibility: number;
+  precipitation?: number;
   dt: number;
   clouds: {
     all: number;

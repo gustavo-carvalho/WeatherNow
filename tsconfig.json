@@ -37,6 +37,7 @@
       "@contexts/*": ["src/contexts/*"],
       "@services/*": ["src/services/*"],
       "@utils/*": ["src/utils/*"],
+      "@assets/*": ["src/assets/*"],
      },
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like `./node_modules/@types`. */
