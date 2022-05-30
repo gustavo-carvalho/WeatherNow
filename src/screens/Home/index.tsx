@@ -32,7 +32,7 @@ const Home = () => {
   if (!formattedData) return null;
 
   return (
-    <S.Container>
+    <S.Container colors={formattedData.gradientColors}>
       <S.Content>
         <S.Header>
           <S.ColumnWrapper>
@@ -46,6 +46,7 @@ const Home = () => {
 
         <S.Body>
           <S.ColumnWrapper>
+            <S.CurrentWeatherIcon source={formattedData.icon} />
             <S.CurrentTemp>{formattedData.currentTemp}°</S.CurrentTemp>
           </S.ColumnWrapper>
 

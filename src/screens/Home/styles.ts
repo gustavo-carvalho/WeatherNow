@@ -5,7 +5,7 @@ import refreshImage from '@assets/refresh.png';
 
 export const Container = styled(LinearGradient).attrs(props => ({
   ...props,
-  colors: ['#3f64a4', '#ceaca7'],
+  colors: props.colors ?? ['#3f64a4', '#ceaca7'],
 }))`
   flex: 1;
   justify-content: center;
@@ -50,13 +50,24 @@ export const Body = styled.View`
   padding: 16px 32px 0;
 `;
 
+export const CurrentWeatherIcon = styled.Image.attrs(props => ({
+  ...props,
+  resizeMode: 'contain',
+}))`
+  max-width: 60px;
+  max-height: 60px;
+  margin-left: 16px;
+`;
+
 export const CurrentTemp = styled.Text`
   font-family: 'Roboto-Medium';
   color: #fff;
   font-size: 128px;
 `;
 
-export const MinMaxTempWrapper = styled.View``;
+export const MinMaxTempWrapper = styled.View`
+  margin-top: 60px;
+`;
 
 export const MinMaxTempSeparator = styled.View`
   height: 1px;
