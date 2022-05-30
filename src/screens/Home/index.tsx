@@ -1,18 +1,23 @@
-import React, {useMemo} from 'react';
-import {TouchableOpacity} from 'react-native';
+import React, {useMemo, useRef} from 'react';
 
-import raindropsImage from '@assets/raindrops.png';
-import humidityImage from '@assets/humidity.png';
-import windImage from '@assets/wind.png';
+import LoadingOverlay from '@components/LoadingOverlay';
 import useGeoPosition from '@hooks/useGeoPosition';
 
 import parseWeatherData from './utils/parseWeatherData';
 import useFetchWeatherData from './hooks/useFetchWeatherData';
+import HomeView from './components/HomeView';
 import * as S from './styles';
 
 const Home = () => {
   const {state, getPosition} = useGeoPosition();
-  const {data} = useFetchWeatherData(state.position);
+  const {data, status} = useFetchWeatherData(state.position);
+  const bgGradient = useRef(['#541111', '#000']);
+
+  const isLoading =
+    state.status === 'idle' ||
+    state.status === 'loading' ||
+    status === 'idle' ||
+    status === 'loading';
 
   const dateFormatted = useMemo(
     () =>
@@ -29,58 +34,20 @@ const Home = () => {
     [data],
   );
 
-  if (!formattedData) return null;
+  if (formattedData?.gradientColors) {
+    bgGradient.current = formattedData?.gradientColors;
+  }
 
   return (
-    <S.Container colors={formattedData.gradientColors}>
-      <S.Content>
-        <S.Header>
-          <S.ColumnWrapper>
-            <S.CityName>{formattedData.name}</S.CityName>
-            <S.DateText>{dateFormatted}</S.DateText>
-          </S.ColumnWrapper>
-          <TouchableOpacity onPress={getPosition}>
-            <S.RefreshIcon />
-          </TouchableOpacity>
-        </S.Header>
-
-        <S.Body>
-          <S.ColumnWrapper>
-            <S.CurrentWeatherIcon source={formattedData.icon} />
-            <S.CurrentTemp>{formattedData.currentTemp}°</S.CurrentTemp>
-          </S.ColumnWrapper>
-
-          <S.MinMaxTempWrapper>
-            <S.MinMaxTemp>{formattedData.maxTemp}°C</S.MinMaxTemp>
-            <S.MinMaxTempSeparator />
-            <S.MinMaxTemp>{formattedData.minTemp}°C</S.MinMaxTemp>
-          </S.MinMaxTempWrapper>
-        </S.Body>
-
-        <S.Footer>
-          <S.FooterItem>
-            <S.FooterItemImage source={raindropsImage} />
-            <S.FooterItemTitle>Precipitação</S.FooterItemTitle>
-            <S.FooterItemDescription>
-              {formattedData.precipitation}%
-            </S.FooterItemDescription>
-          </S.FooterItem>
-          <S.FooterItem>
-            <S.FooterItemImage source={humidityImage} />
-            <S.FooterItemTitle>Umidade</S.FooterItemTitle>
-            <S.FooterItemDescription>
-              {formattedData.humidity}%
-            </S.FooterItemDescription>
-          </S.FooterItem>
-          <S.FooterItem>
-            <S.FooterItemImage source={windImage} />
-            <S.FooterItemTitle>Vento</S.FooterItemTitle>
-            <S.FooterItemDescription>
-              {formattedData.windSpeedKM} km/h
-            </S.FooterItemDescription>
-          </S.FooterItem>
-        </S.Footer>
-      </S.Content>
+    <S.Container colors={bgGradient.current}>
+      <LoadingOverlay visible={isLoading || !formattedData} />
+      {formattedData ? (
+        <HomeView
+          dateFormatted={dateFormatted}
+          onPressRefresh={getPosition}
+          {...formattedData}
+        />
+      ) : null}
     </S.Container>
   );
 };

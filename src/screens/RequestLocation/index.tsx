@@ -1,7 +1,7 @@
-import React from 'react';
-import {StatusBar} from 'react-native';
+import React, {useEffect} from 'react';
 
 import useGeoPermission from '@contexts/geoPermission';
+import LoadingOverlay from '@components/LoadingOverlay';
 
 import * as S from './styles';
 
@@ -9,23 +9,25 @@ const RequestLocation = () => {
   const {requestPermission, permission} = useGeoPermission();
   const isLoading = permission === 'pending';
 
-  return (
-    <S.Container>
-      <S.Content>
-        <StatusBar translucent animated barStyle="light-content" />
-        <S.DescriptionText>
-          Para continuar precisamos saber sua localização
-        </S.DescriptionText>
+  useEffect(() => {
+    requestPermission();
+  }, [requestPermission]);
 
-        {isLoading ? (
-          <S.LoadingSpinner />
-        ) : (
+  return (
+    <>
+      <LoadingOverlay visible={isLoading} />
+      <S.Container>
+        <S.Content>
+          <S.DescriptionText>
+            Para continuar precisamos saber sua localização
+          </S.DescriptionText>
+
           <S.SubmitButton onPress={requestPermission}>
             <S.SubmitButtonText>Habilitar Geolocalização</S.SubmitButtonText>
           </S.SubmitButton>
-        )}
-      </S.Content>
-    </S.Container>
+        </S.Content>
+      </S.Container>
+    </>
   );
 };
 
