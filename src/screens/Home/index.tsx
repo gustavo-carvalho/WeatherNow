@@ -1,5 +1,7 @@
-import React, {useMemo, useRef} from 'react';
+import React, {useEffect, useMemo, useRef} from 'react';
+import {Alert} from 'react-native';
 
+import useGeoPermission from '@contexts/geoPermission';
 import LoadingOverlay from '@components/LoadingOverlay';
 import useGeoPosition from '@hooks/useGeoPosition';
 
@@ -9,6 +11,7 @@ import HomeView from './components/HomeView';
 import * as S from './styles';
 
 const Home = () => {
+  const {setPermission} = useGeoPermission();
   const {state, getPosition} = useGeoPosition();
   const {data, status} = useFetchWeatherData(state.position);
   const bgGradient = useRef(['#541111', '#000']);
@@ -37,6 +40,16 @@ const Home = () => {
   if (formattedData?.gradientColors) {
     bgGradient.current = formattedData?.gradientColors;
   }
+
+  useEffect(() => {
+    if (!state.error) return;
+
+    if (state.error.code === 1) {
+      setPermission('idle');
+    } else {
+      Alert.alert('Ocorreu um ero ao buscar sua localização, tente novamente.');
+    }
+  }, [setPermission, state.error]);
 
   return (
     <S.Container testID="home-container" colors={bgGradient.current}>

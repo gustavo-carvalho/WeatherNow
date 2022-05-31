@@ -5,6 +5,9 @@ import useGeoPosition from '@hooks/useGeoPosition';
 
 import Home from '../';
 
+jest.mock('@contexts/geoPermission', () =>
+  jest.fn().mockReturnValue({setPermission: jest.fn()}),
+);
 jest.mock('@hooks/useGeoPosition', () => jest.fn());
 jest.mock('../hooks/useFetchWeatherData');
 jest.mock('react-native-linear-gradient', () => 'LinearGradient');
