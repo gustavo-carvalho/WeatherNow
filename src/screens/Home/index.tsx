@@ -47,9 +47,19 @@ const Home = () => {
     if (state.error.code === 1) {
       setPermission('idle');
     } else {
-      Alert.alert('Ocorreu um ero ao buscar sua localização, tente novamente.');
+      Alert.alert(
+        'Ocorreu um erro ao buscar sua localização, tente novamente.',
+      );
     }
   }, [setPermission, state.error]);
+
+  useEffect(() => {
+    if (status === 'error') {
+      Alert.alert(
+        'Ocorreu um erro ao buscar os dados do clima, tente novamente.',
+      );
+    }
+  }, [status]);
 
   return (
     <S.Container testID="home-container" colors={bgGradient.current}>
