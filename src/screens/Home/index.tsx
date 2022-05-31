@@ -39,8 +39,11 @@ const Home = () => {
   }
 
   return (
-    <S.Container colors={bgGradient.current}>
-      <LoadingOverlay visible={isLoading || !formattedData} />
+    <S.Container testID="home-container" colors={bgGradient.current}>
+      <LoadingOverlay
+        testID="home-loading-overlay"
+        visible={isLoading || !formattedData}
+      />
       {formattedData ? (
         <HomeView
           dateFormatted={dateFormatted}

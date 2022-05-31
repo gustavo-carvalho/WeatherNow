@@ -20,13 +20,13 @@ const HomeView: FC<HomeViewProps> = ({
   name,
   onPressRefresh,
 }) => (
-  <S.Content>
+  <S.Content testID="home-view">
     <S.Header>
       <S.ColumnWrapper>
-        <S.CityName>{name}</S.CityName>
-        <S.DateText>{dateFormatted}</S.DateText>
+        <S.CityName testID="name">{name}</S.CityName>
+        <S.DateText testID="date-formatted">{dateFormatted}</S.DateText>
       </S.ColumnWrapper>
-      <TouchableOpacity onPress={onPressRefresh}>
+      <TouchableOpacity testID="refresh-button" onPress={onPressRefresh}>
         <S.RefreshIcon />
       </TouchableOpacity>
     </S.Header>
@@ -34,13 +34,13 @@ const HomeView: FC<HomeViewProps> = ({
     <S.Body>
       <S.ColumnWrapper>
         <S.CurrentWeatherIcon source={icon} />
-        <S.CurrentTemp>{currentTemp}°</S.CurrentTemp>
+        <S.CurrentTemp testID="current-temp">{currentTemp}°</S.CurrentTemp>
       </S.ColumnWrapper>
 
       <S.MinMaxTempWrapper>
-        <S.MinMaxTemp>{maxTemp}°C</S.MinMaxTemp>
+        <S.MinMaxTemp testID="max-temp">{maxTemp}°C</S.MinMaxTemp>
         <S.MinMaxTempSeparator />
-        <S.MinMaxTemp>{minTemp}°C</S.MinMaxTemp>
+        <S.MinMaxTemp testID="min-temp">{minTemp}°C</S.MinMaxTemp>
       </S.MinMaxTempWrapper>
     </S.Body>
 
@@ -48,17 +48,23 @@ const HomeView: FC<HomeViewProps> = ({
       <S.FooterItem>
         <S.FooterItemImage source={raindropsImage} />
         <S.FooterItemTitle>Precipitação</S.FooterItemTitle>
-        <S.FooterItemDescription>{precipitation}%</S.FooterItemDescription>
+        <S.FooterItemDescription testID="precipitation">
+          {precipitation}%
+        </S.FooterItemDescription>
       </S.FooterItem>
       <S.FooterItem>
         <S.FooterItemImage source={humidityImage} />
         <S.FooterItemTitle>Umidade</S.FooterItemTitle>
-        <S.FooterItemDescription>{humidity}%</S.FooterItemDescription>
+        <S.FooterItemDescription testID="humidity">
+          {humidity}%
+        </S.FooterItemDescription>
       </S.FooterItem>
       <S.FooterItem>
         <S.FooterItemImage source={windImage} />
         <S.FooterItemTitle>Vento</S.FooterItemTitle>
-        <S.FooterItemDescription>{windSpeedKM} km/h</S.FooterItemDescription>
+        <S.FooterItemDescription testID="wind-speed-km">
+          {windSpeedKM} km/h
+        </S.FooterItemDescription>
       </S.FooterItem>
     </S.Footer>
   </S.Content>
