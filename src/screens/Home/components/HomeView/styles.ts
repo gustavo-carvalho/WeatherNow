@@ -76,7 +76,7 @@ export const MinMaxTemp = styled.Text`
 export const Footer = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  margin: 0 20px;
+  margin: 0 20px 16px;
   background: rgba(0, 0, 0, 0.25);
   border-radius: 40px;
 `;
