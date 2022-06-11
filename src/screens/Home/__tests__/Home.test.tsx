@@ -12,6 +12,18 @@ jest.mock('@hooks/useGeoPosition', () => jest.fn());
 jest.mock('../hooks/useFetchWeatherData');
 jest.mock('react-native-linear-gradient', () => 'LinearGradient');
 
+const mockedNavigate = jest.fn();
+
+jest.mock('@react-navigation/native', () => {
+  const actualNav = jest.requireActual('@react-navigation/native');
+  return {
+    ...actualNav,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  };
+});
+
 describe('Home', () => {
   afterEach(() => jest.clearAllMocks());
 
