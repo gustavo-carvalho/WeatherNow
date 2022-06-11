@@ -22,19 +22,7 @@ function useDeclareGeoPermission(): GeoPermissionContextData {
     const status = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
     );
-
-    switch (status) {
-      case PermissionsAndroid.PERMISSIONS.RESULTS.GRANTED:
-        setPermission('granted');
-        break;
-      case PermissionsAndroid.PERMISSIONS.RESULTS.NEVER_ASK_AGAIN:
-        setPermission('never_ask_again');
-        break;
-      case PermissionsAndroid.PERMISSIONS.RESULTS.GRANTED:
-      default:
-        setPermission('denied');
-        break;
-    }
+    setPermission(status);
   }, []);
 
   const requestPermissionIOS = useCallback(async () => {
