@@ -23,7 +23,7 @@ export default function useFetchWeatherData(params: UseFetchWeatherDataProps) {
         setData(response.data);
         setStatus('success');
       } catch (error) {
-        setStatus('failed');
+        setStatus('error');
       }
     },
     [],
