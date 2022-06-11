@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 import useGeoPermission from '@contexts/geoPermission';
 import LoadingOverlay from '@components/LoadingOverlay';
@@ -6,8 +7,15 @@ import LoadingOverlay from '@components/LoadingOverlay';
 import * as S from './styles';
 
 const RequestLocation = () => {
+  const navigation = useNavigation();
   const {requestPermission, permission} = useGeoPermission();
   const isLoading = permission === 'pending';
+
+  useEffect(() => {
+    if (permission === 'granted') {
+      navigation.navigate('Home');
+    }
+  }, [permission, navigation]);
 
   return (
     <>

@@ -7,13 +7,9 @@ export const POSITION_OPTIONS: GeoOptions = {
     android: 'high',
     ios: 'best',
   },
-  enableHighAccuracy: false,
+  enableHighAccuracy: true,
   timeout: 5000,
   maximumAge: 10000,
-  distanceFilter: 0,
-  forceRequestLocation: true,
-  forceLocationManager: true,
-  showLocationDialog: true,
 };
 
 export const INITIAL_REDUCER_STATE: State = {

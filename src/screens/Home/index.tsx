@@ -1,5 +1,6 @@
 import React, {useEffect, useMemo, useRef} from 'react';
 import {Alert} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 import useGeoPermission from '@contexts/geoPermission';
 import LoadingOverlay from '@components/LoadingOverlay';
@@ -11,6 +12,7 @@ import HomeView from './components/HomeView';
 import * as S from './styles';
 
 const Home = () => {
+  const navigation = useNavigation();
   const {setPermission} = useGeoPermission();
   const {state, getPosition} = useGeoPosition();
   const {data, status} = useFetchWeatherData(state.position);
@@ -46,12 +48,13 @@ const Home = () => {
 
     if (state.error.code === 1) {
       setPermission('idle');
+      navigation.goBack();
     } else {
       Alert.alert(
         'Ocorreu um erro ao buscar sua localização, tente novamente.',
       );
     }
-  }, [setPermission, state.error]);
+  }, [setPermission, state.error, navigation, state]);
 
   useEffect(() => {
     if (status === 'error') {
